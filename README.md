@@ -4,6 +4,7 @@ BAR packaging and signing tool
 
 Usage
 =========================
+```
 <build>
     <plugins>
         ...
@@ -44,4 +45,5 @@ Usage
         ...
     </plugins>
 </build>
+```
 
