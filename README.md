@@ -1,0 +1,49 @@
+blackberry10-maven-plugin
+=========================
+BAR packaging and signing tool
+
+Usage
+=========================
+```
+<build>
+    <plugins>
+        ...
+      <plugin>
+            <groupId>com.filmon.maven</groupId>
+            <version>1.1-SNAPSHOT</version>
+            <artifactId>blackberry10-maven-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>bb</id>
+                    <goals>
+                        <goal>package</goal>
+                        <goal>sign</goal>
+                        <goal>verify</goal>
+                    </goals>
+                    <configuration>
+                        <barPackage>
+                            <apkFile>myApk.apk</apkFile>
+                            <barFile>myBar.bar</barFile>
+                            <minimalOsVersion>10.2</minimalOsVersion>
+                            <warningLevelThreshold>5</warningLevelThreshold>
+                            <applicationCategory>media</applicationCategory>
+                            <verifyApk>true</verifyApk>
+                            <appEntryPointNameTruncation>right</appEntryPointNameTruncation>
+                        </barPackage>
+                        <certificate>
+                            <file>bbidtoken.csk/</file>
+                            <password>myPassword</password>
+                            <author>FilmOn</author>
+                        </certificate>
+                        <keyStorage>
+                            <file>FilmOn.p12</file>
+                        </keyStorage>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        ...
+    </plugins>
+</build>
+```
+
