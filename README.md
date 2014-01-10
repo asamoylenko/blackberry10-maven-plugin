@@ -21,6 +21,7 @@ Usage
                         <goal>verify</goal>
                     </goals>
                     <configuration>
+                        <skip>false</skip>
                         <barPackage>
                             <apkFile>myApk.apk</apkFile>
                             <barFile>myBar.bar</barFile>

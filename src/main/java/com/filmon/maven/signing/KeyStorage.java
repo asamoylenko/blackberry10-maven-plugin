@@ -4,6 +4,9 @@ import java.io.File;
 
 public class KeyStorage {
 
+    /**
+     * Key storage (*.p12) file location.
+     */
     private File file;
 
     public File getFile() {

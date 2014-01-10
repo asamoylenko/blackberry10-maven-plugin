@@ -11,6 +11,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 
+import java.io.File;
 import java.util.concurrent.Callable;
 
 @Mojo(name="package", defaultPhase = LifecyclePhase.PACKAGE)
@@ -44,14 +45,62 @@ public class PackageMojo extends BlackberryAbstractMojo {
         };
         ExitTrappingExecutor executor = new ExitTrappingExecutor();
         boolean packagingSuccessful = executor.execute(packagingCallable) == 0
-                                      && getBarPackage().getBarFile().exists();
+                                      && checkPackage();
 
         if (!packagingSuccessful) {
-            throw new MojoExecutionException("Failed to package application. Path: " + getBarPackage().getBarFile().getPath());
+            throw new MojoExecutionException("Failed to package application. Path: " +
+                                             getBarPackage().getBarFile().getPath());
         }
 
         getLog().info("Application packaged successfully.");
 
         return packagingSuccessful;
+    }
+
+    /**
+     * Checks if BAR file exists and renames it if necessary.
+     */
+    private boolean checkPackage() {
+        if (getBarPackage().getApkFile() == null
+                || !getBarPackage().getApkFile().canRead()) {
+            getLog().error("APK file is not specified or cannot be read.");
+            return false;
+        }
+
+        String apkName = getBarPackage().getApkFile().getName();
+
+        if (getBarPackage().getBarFile() == null) {
+            getLog().error("BAR file is not specified.");
+            return false;
+        }
+
+        File currentBarFile = new File(getBarPackage().getBarFile().getParent(),
+                                       apkName.replace(".apk", ".bar"));
+
+        if (!currentBarFile.exists()) {
+            getLog().error("BAR file does not exist.");
+            return false;
+        }
+
+        File desirableBarFile = getBarPackage().getBarFile();
+
+        if (currentBarFile.getPath().equals(desirableBarFile.getPath())) {
+            // APK file name matches BAR file name, no need to rename.
+            return true;
+        }
+
+        if (!currentBarFile.canWrite()) {
+            getLog().error("BAR file does not exist or no permission to write.");
+            return false;
+        }
+
+        // If a file with such name already exists, try to delete it.
+        if (desirableBarFile.exists() && !desirableBarFile.delete()) {
+            getLog().error("Failed to delete existing BAR file with desirable " +
+                           "name. Path: " + desirableBarFile.getPath());
+            return false;
+        }
+
+        return currentBarFile.renameTo(desirableBarFile);
     }
 }

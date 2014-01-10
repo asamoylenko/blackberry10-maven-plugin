@@ -4,8 +4,20 @@ import java.io.File;
 
 public class Certificate {
 
+    /**
+     * Certificate (*.csk) file location.
+     */
     private File file;
+
+    /**
+     * Certificate password. The same password
+     * will be set to key storage.
+     */
     private String password;
+
+    /**
+     * This parameter specifies the author name for the BAR files.
+     */
     private String author;
 
     public File getFile() {

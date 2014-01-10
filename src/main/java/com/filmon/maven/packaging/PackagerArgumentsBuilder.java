@@ -90,6 +90,9 @@ public class PackagerArgumentsBuilder {
             throw new MojoExecutionException("No permission to write for parent directory of specified BAR file.");
         }
 
+        /* Apk2Bar tool accepts directory as a parameter and
+           generates BAR file with the exact same name as APK's.
+        */
         this.barFile = barFile.getParentFile();
         return this;
     }

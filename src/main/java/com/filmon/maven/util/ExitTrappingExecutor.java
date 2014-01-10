@@ -4,6 +4,9 @@ package com.filmon.maven.util;
 import java.security.Permission;
 import java.util.concurrent.Callable;
 
+/**
+ * Prevents plugin from being shut down by one of dependency libs.
+ */
 public class ExitTrappingExecutor {
 
     private SecurityManager securityManager = null;

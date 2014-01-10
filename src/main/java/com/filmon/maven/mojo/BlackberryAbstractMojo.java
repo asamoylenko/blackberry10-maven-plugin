@@ -12,17 +12,26 @@ import org.apache.maven.plugins.annotations.Parameter;
 public abstract class BlackberryAbstractMojo extends AbstractMojo {
 
     /**
-     * descrption package nah
+     * Package parameters.
      */
     @Parameter(required = true)
     private Package barPackage;
 
+    /**
+     * Certificate parameters.
+     */
     @Parameter(required = true)
     private Certificate certificate;
 
+    /**
+     * Key storage parameters.
+     */
     @Parameter(required = true)
     private KeyStorage keyStorage;
 
+    /**
+     * A flag indicating if you need to skip plugin execution or not.
+     */
     @Parameter(required = false, defaultValue = "false")
     private boolean skip;
 
