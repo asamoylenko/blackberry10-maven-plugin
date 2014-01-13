@@ -34,7 +34,7 @@ public class SignMojo extends BlackberryAbstractMojo {
         KeyToolArgumentsBuilder argumentsBuilder
                 = new KeyToolArgumentsBuilder(getKeyStorage().getFile(),
                 getCertificate().getPassword(),
-                getCertificate().getPassword());
+                getCertificate().getAuthor());
 
         final String[] args = argumentsBuilder.create();
 
