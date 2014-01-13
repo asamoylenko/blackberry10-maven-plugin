@@ -10,7 +10,7 @@ Usage
         ...
       <plugin>
             <groupId>com.filmon.maven</groupId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.0</version>
             <artifactId>blackberry10-maven-plugin</artifactId>
             <executions>
                 <execution>
